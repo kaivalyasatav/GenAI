@@ -1,0 +1,50 @@
+{
+  "modelId": "meta.llama3-8b-instruct-v1:0",
+  "messages": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "text": ""
+        }
+      ]
+    }
+  ],
+  "inferenceConfig": {
+    "maxTokens": 512,
+    "temperature": 0.5,
+    "topP": 0.9
+  },
+  "additionalModelRequestFields": {},
+  "performanceConfig": {
+    "latency": "standard"
+  }
+}
+
+{
+  "modelId": "arn:aws:bedrock:us-east-1:566208417193:inference-profile/us.anthropic.claude-sonnet-4-5-20250929-v1:0",
+  "messages": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "text": ""
+        }
+      ]
+    }
+  ],
+  "inferenceConfig": {
+    "maxTokens": 2000,
+    "stopSequences": [
+      "\n\nHuman:"
+    ],
+    "temperature": 1,
+    "topP": 0.999
+  },
+  "additionalModelRequestFields": {
+    "top_k": 250
+  },
+  "performanceConfig": {
+    "latency": "standard"
+  }
+}
