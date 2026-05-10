@@ -1,3 +1,5 @@
+
+## Llama model
 {
   "modelId": "meta.llama3-8b-instruct-v1:0",
   "messages": [
@@ -21,6 +23,7 @@
   }
 }
 
+## Claude sonnet 4.5
 {
   "modelId": "arn:aws:bedrock:us-east-1:566208417193:inference-profile/us.anthropic.claude-sonnet-4-5-20250929-v1:0",
   "messages": [
