@@ -1,5 +1,6 @@
 import boto3
 import json
+
 prompt_data = "Act as Shakespeare and write a poem on Generative AI"
 
 bedrock = boto3.client(
