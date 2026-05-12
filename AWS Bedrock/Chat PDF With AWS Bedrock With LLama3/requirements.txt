@@ -1,0 +1,10 @@
+boto3 ## connect services with bedrock
+awscli
+pypdf
+langchain
+streamlit
+faiss-cpu
+langchain_aws
+langchain-text-splitters
+langchain_community
+langchain_core
