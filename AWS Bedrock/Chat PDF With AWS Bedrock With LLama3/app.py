@@ -63,6 +63,7 @@ def get_llama_model():
     )
     return llm
 
+
 prompt_template = """
 
 Human: Use the following pieces of context to provide a 
@@ -81,6 +82,7 @@ PROMPT = PromptTemplate(
     template=prompt_template, input_variables=["context", "question"]
 )
 
+
 def get_response_llm(llm,vector_store_faiss,query):
     qa = RetrievalQA.from_chain_type(
     llm=llm,
@@ -93,6 +95,7 @@ def get_response_llm(llm,vector_store_faiss,query):
 )
     answer=qa({"query":query})
     return answer['result']
+
 
 def main():
     st.set_page_config("Chat PDF")
