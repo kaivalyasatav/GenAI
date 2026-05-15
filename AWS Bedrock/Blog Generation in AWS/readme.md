@@ -1,9 +1,10 @@
 # AI Blog Generation using AWS Bedrock
 
-An AI-powered serverless blog generation application built using **Amazon Bedrock, Meta Llama 3, AWS Lambda, Amazon S3, and Boto3**.
+An AI-powered serverless blog generation application built using **Amazon Bedrock, Meta Llama 3, AWS Lambda, AWS API Gateway, Amazon S3, and Boto3**.
 
-This project generates AI-written blog content based on a user-provided topic using Meta Llama 3 through Amazon Bedrock, then automatically stores the generated blog output in an Amazon S3 bucket for persistence.
+This project exposes a REST API endpoint through AWS API Gateway that accepts blog topic requests, triggers an AWS Lambda function, generates AI-written blog content using Meta Llama 3 via Amazon Bedrock, and automatically stores the generated output in Amazon S3.
 
+The application demonstrates a complete cloud-native event-driven generative AI workflow.
 ---
 
 ## Features
@@ -12,12 +13,13 @@ This project generates AI-written blog content based on a user-provided topic us
 - Amazon Bedrock integration
 - Meta Llama 3 inference
 - AWS Lambda serverless execution
+- AWS API Gateway REST API integration
+- Route and stage deployment configuration
 - Amazon S3 blog storage
 - Prompt-driven content generation
 - Automatic timestamp-based file creation
-- Error handling with retry configuration
-- Cloud-native architecture
-
+- Retry handling for Bedrock API calls
+- Cloud-native event-driven architecture
 ---
 
 ## Tech Stack
@@ -42,27 +44,30 @@ This project generates AI-written blog content based on a user-provided topic us
 ## Project Architecture
 
 ```text
-User Request / API Event
-          │
-          ▼
+Client Request
+     │
+     ▼
+AWS API Gateway
+(Route + Stage)
+     │
+     ▼
 AWS Lambda Function
-          │
-          ▼
+     │
+     ▼
 Prompt Construction
-          │
-          ▼
+     │
+     ▼
 Amazon Bedrock Runtime API
-          │
-          ▼
-Meta Llama 3 Model
-          │
-          ▼
+     │
+     ▼
+Meta Llama 3 Foundation Model
+     │
+     ▼
 Generated Blog Content
-          │
-          ▼
+     │
+     ▼
 Amazon S3 Storage
 ```
-
 ---
 
 ## Project Structure
@@ -88,6 +93,33 @@ Blog Generation in AWS/
 7. Lambda returns success response
 
 ---
+
+## API Gateway Configuration
+
+AWS API Gateway was used to expose the Lambda function as a REST API endpoint.
+
+### Configuration Steps
+
+1. Create an API in AWS API Gateway
+2. Create a route (e.g. `/generate-blog`)
+3. Integrate the route with the AWS Lambda function
+4. Configure request payload handling
+5. Create deployment stage (e.g. `dev` / `prod`)
+6. Deploy the API
+
+Example endpoint:
+
+```bash
+https://your-api-id.execute-api.us-east-1.amazonaws.com/prod/generate-blog
+```
+
+Sample POST request:
+
+```json
+{
+  "blog_topic": "Future of Artificial Intelligence"
+}
+```
 
 ## Sample Input
 
@@ -202,17 +234,29 @@ Write a 200-word blog on Artificial Intelligence
 
 ---
 
+## How It Works
+
+1. Client sends a POST request to the API Gateway endpoint
+2. API Gateway route forwards the request to AWS Lambda
+3. Lambda extracts the blog topic from the event payload
+4. A prompt is dynamically generated for Meta Llama 3
+5. Amazon Bedrock processes the request and generates blog content
+6. Lambda extracts the generated response
+7. Blog content is stored in Amazon S3 using timestamp-based filenames
+8. API returns success response to the client
+
 ## Learning Concepts Covered
 
 This project demonstrates:
 
 - Amazon Bedrock integration
 - Meta Llama 3 inference
-- Serverless AI application design
-- AWS Lambda event-driven execution
-- S3 object storage automation
+- AWS Lambda serverless execution
+- AWS API Gateway REST API deployment
+- Route and stage configuration
+- Amazon S3 storage automation
+- Event-driven cloud architecture
 - Prompt engineering
-- Cloud-native generative AI workflows
-- Boto3 API integrations
-- Error handling and retries
+- Boto3 integrations
+- Generative AI cloud workflows
 
